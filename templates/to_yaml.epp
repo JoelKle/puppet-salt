@@ -1,0 +1,4 @@
+<%- |
+  $data,
+| -%>
+<%= $data.to_direct_yaml %>

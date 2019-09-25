@@ -1,0 +1,70 @@
+---
+lookup_options:
+  salt::minion::additional_packages:
+    merge: deep
+  salt::minion::configs:
+    merge: deep
+  salt::master::additional_packages:
+    merge: deep
+  salt::master::configs:
+    merge: deep
+  salt::api::additional_packages:
+    merge: deep
+  salt::api::configs:
+    merge: deep
+  salt::pepper::additional_packages:
+    merge: deep
+  salt::pepper::configs:
+    merge: deep
+  salt::pepper::environments:
+    merge: deep
+
+salt::minion::package_manage: true
+salt::minion::package_name: salt-minion
+salt::minion::package_ensure: "%{lookup('salt::master::package_ensure')}"
+salt::minion::package_release: "%{lookup('salt::master::package_release')}"
+salt::minion::additional_packages: ~
+salt::minion::service_enable: true
+salt::minion::service_ensure: running
+salt::minion::service_name: salt-minion
+salt::minion::config_dir: /etc/salt
+salt::minion::config_file: "%{lookup('salt::minion::config_dir')}/minion"
+salt::minion::configs: ~
+
+salt::master::package_manage: true
+salt::master::package_name: salt-master
+salt::master::package_ensure: present
+salt::master::package_release: latest
+salt::master::additional_packages: ~
+salt::master::service_enable: true
+salt::master::service_ensure: running
+salt::master::service_name: salt-master
+salt::master::config_dir: /etc/salt
+salt::master::config_file: "%{lookup('salt::master::config_dir')}/master"
+salt::master::configs: ~
+
+salt::api::package_manage: true
+salt::api::package_name: salt-api
+salt::api::package_ensure: "%{lookup('salt::master::package_ensure')}"
+salt::api::package_release: "%{lookup('salt::master::package_release')}"
+salt::api::additional_packages:
+  - 'python3-cherrypy3'
+salt::api::service_enable: true
+salt::api::service_ensure: running
+salt::api::service_name: salt-api
+salt::api::config_dir: /etc/salt
+salt::api::config_file: "%{lookup('salt::api::config_dir')}/master"
+salt::api::configs: ~
+
+salt::pepper::package_manage: true
+salt::pepper::package_name: salt-pepper
+salt::pepper::package_ensure: 'latest'
+salt::pepper::package_provider: pip3
+salt::pepper::additional_packages: ~
+salt::pepper::config_dir: /etc/salt
+salt::pepper::config_file: "%{lookup('salt::pepper::config_dir')}/.pepperrc"
+salt::pepper::configs: ~
+salt::pepper::environment_dir: /etc/profile.d
+salt::pepper::environment_file: "%{lookup('salt::pepper::environment_dir')}/saltstack-pepper.sh"
+salt::pepper::environments:
+  - "export PEPPERRC='%{lookup('salt::pepper::config_file')}'"
