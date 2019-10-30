@@ -1,6 +1,6 @@
 {
   "name": "joelkle-salt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "JoelKle",
   "summary": "Installs, configures, and manages the SaltStack ( salt-minion / salt-master / salt-api / salt-pepper ).",
   "license": "Apache-2.0",
@@ -10,15 +10,15 @@
   "dependencies": [
     {
       "name": "puppetlabs-apt",
-      "version_requirement": ">= 5.0.0 < 8.0.0"
+      "version_requirement": ">= 4.4.0 < 8.0.0"
     },
     {
       "name": "puppetlabs-concat",
-      "version_requirement": ">= 4.1.0 < 7.0.0"
+      "version_requirement": ">= 4.0.1 < 7.0.0"
     },
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 4.25.0 < 7.0.0"
+      "version_requirement": ">= 4.20.0 < 7.0.0"
     },
     {
       "name": "mmckinst/hash2stuff",
@@ -36,14 +36,15 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "9"
+        "9",
+	"10"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.5.8 < 7.0.0"
+      "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
   "tags": [
