@@ -12,6 +12,10 @@ lookup_options:
     merge: deep
   salt::api::configs:
     merge: deep
+  salt::syndic::additional_packages:
+    merge: deep
+  salt::syndic::configs:
+    merge: deep
   salt::pepper::additional_packages:
     merge: deep
   salt::pepper::configs:
@@ -55,6 +59,18 @@ salt::api::service_name: salt-api
 salt::api::config_dir: /etc/salt
 salt::api::config_file: "%{lookup('salt::api::config_dir')}/master"
 salt::api::configs: ~
+
+salt::syndic::package_manage: true
+salt::syndic::package_name: salt-syndic
+salt::syndic::package_ensure: "%{lookup('salt::master::package_ensure')}"
+salt::syndic::package_release: "%{lookup('salt::master::package_release')}"
+salt::syndic::additional_packages: ~
+salt::syndic::service_enable: true
+salt::syndic::service_ensure: running
+salt::syndic::service_name: salt-syndic
+salt::syndic::config_dir: /etc/salt
+salt::syndic::config_file: "%{lookup('salt::syndic::config_dir')}/master"
+salt::syndic::configs: ~
 
 salt::pepper::package_manage: true
 salt::pepper::package_name: salt-pepper

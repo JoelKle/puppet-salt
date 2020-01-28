@@ -8,7 +8,7 @@
   - [Setup](#setup)
     - [What Salt affects](#what-salt-affects)
   - [Usage](#usage)
-    - [Manage Salt minion / master / api](#manage-salt-minion--master--api)
+    - [Manage Salt minion / master / api / syndic](#manage-salt-minion--master--api--syndic)
       - [Basic setup](#basic-setup)
       - [Install specific Salt version](#install-specific-salt-version)
       - [Install additional packages needed for Salt](#install-additional-packages-needed-for-salt)
@@ -32,6 +32,7 @@ It can manage
 * salt-minion
 * salt-master
 * salt-api
+* salt-syndic
 * salt-pepper
 
 It will manage
@@ -39,13 +40,13 @@ It will manage
 
 ## Usage
 
-For every part to install, minion, master, api and pepper there is a extra class you'll have to call.
+For every part to install, minion, master, api, syndic and pepper there is a extra class you'll have to call.
 
-### Manage Salt minion / master / api
+### Manage Salt minion / master / api / syndic
 
-The classes for the minion, master and api are mostly the same.
+The classes for the minion, master, api and syndic are mostly the same.
 
-The following example shows how to manage a Salt master. **You can use the same examples to manage the minion or api.** The minion and api have the same parameters.
+The following example shows how to manage a Salt master. **You can use the same examples to manage the minion, api or syndic.** The minion, api and syndic have the same parameters.
 
 Any other parameters are documented in the [REFERENCE.md](REFERENCE.md)
 

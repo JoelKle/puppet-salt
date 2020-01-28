@@ -1,8 +1,8 @@
 {
   "name": "joelkle-salt",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "JoelKle",
-  "summary": "Installs, configures, and manages the SaltStack ( salt-minion / salt-master / salt-api / salt-pepper ).",
+  "summary": "Installs, configures, and manages the SaltStack ( salt-minion / salt-master / salt-api / salt-syndic / salt-pepper ).",
   "license": "Apache-2.0",
   "source": "https://github.com/JoelKle/puppet-salt",
   "project_page": "https://github.com/JoelKle/puppet-salt",
@@ -37,7 +37,7 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "9",
-	"10"
+        "10"
       ]
     }
   ],
@@ -53,9 +53,10 @@
     "salt-minion",
     "salt-master",
     "salt-api",
+    "salt-syndic",
     "salt-pepper"
   ],
-  "pdk-version": "1.13.0",
-  "template-url": "pdk-default#1.13.0",
-  "template-ref": "1.13.0-0-g66e1443"
+  "pdk-version": "1.15.0",
+  "template-url": "pdk-default#1.15.0",
+  "template-ref": "tags/1.15.0-0-g0bc522e"
 }

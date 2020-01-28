@@ -4,6 +4,11 @@
 
 #### Fixes
 
+## 1.1.0 (January 28, 2020)
+
+#### Features
+* added class to manage salt-syndic
+
 ## 1.0.1 (October 30, 2019)
 
 #### Features
