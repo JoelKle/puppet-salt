@@ -6,28 +6,36 @@
 #   More infos here: [https://repo.saltstack.com/]
 #   Example: 2019.2.0 (To pin the repo url to a specific version)
 #
-# @param base_repo_url
-#   Base Repo URL from which to use to download the packages.
+# @param release
+#   Optional release to use in the apt source string.
+#
+# @param repo_url
+#   Optional full repo URL to use to download the packages.
 #
 define salt::repo (
   String $salt_release = $title,
-  String $base_repo_url = 'http://repo.saltstack.com',
+  String $release = $facts['os']['distro']['codename'],
+  Optional[String] $repo_url = undef,
 ) {
 
   case $facts['os']['family'] {
     'Debian': {
       include apt
 
-      if $salt_release == 'latest' {
-        $_url = "${base_repo_url}/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/latest"
+      if $repo_url {
+        $_url = $repo_url
       } else {
-        $_url = "${base_repo_url}/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/archive/${salt_release}"
+        if $salt_release == 'latest' {
+          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/latest"
+        } else {
+          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/archive/${salt_release}"
+        }
       }
 
       apt::source { "repo_saltstack_com_${name}":
         ensure   => 'present',
         location => $_url,
-        release  => $facts['os']['distro']['codename'],
+        release  => $release,
         repos    => 'main',
         key      => {
           id     => '754A1A7AE731F165D5E6D4BD0E08A149DE57BFBE',

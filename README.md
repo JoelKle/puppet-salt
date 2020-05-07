@@ -86,6 +86,10 @@ salt::master::package_ensure: "%{lookup('salt::master::package_release')}+ds-1"
 * Installs the package repo for the release given with `salt::master::package_release`
 * Installs the Salt master package in the version given with `salt::master::package_ensure`
 
+You can disable the management of the repo:
+```yaml
+salt::master::repo_manage: false
+```
 
 #### Install additional packages needed for Salt
 

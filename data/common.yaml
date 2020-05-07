@@ -23,6 +23,7 @@ lookup_options:
   salt::pepper::environments:
     merge: deep
 
+salt::minion::repo_manage: true
 salt::minion::package_manage: true
 salt::minion::package_name: salt-minion
 salt::minion::package_ensure: "%{lookup('salt::master::package_ensure')}"
@@ -35,6 +36,7 @@ salt::minion::config_dir: /etc/salt
 salt::minion::config_file: "%{lookup('salt::minion::config_dir')}/minion"
 salt::minion::configs: ~
 
+salt::master::repo_manage: true
 salt::master::package_manage: true
 salt::master::package_name: salt-master
 salt::master::package_ensure: present
@@ -47,6 +49,7 @@ salt::master::config_dir: /etc/salt
 salt::master::config_file: "%{lookup('salt::master::config_dir')}/master"
 salt::master::configs: ~
 
+salt::api::repo_manage: true
 salt::api::package_manage: true
 salt::api::package_name: salt-api
 salt::api::package_ensure: "%{lookup('salt::master::package_ensure')}"
@@ -60,6 +63,7 @@ salt::api::config_dir: /etc/salt
 salt::api::config_file: "%{lookup('salt::api::config_dir')}/master"
 salt::api::configs: ~
 
+salt::syndic::repo_manage: true
 salt::syndic::package_manage: true
 salt::syndic::package_name: salt-syndic
 salt::syndic::package_ensure: "%{lookup('salt::master::package_ensure')}"

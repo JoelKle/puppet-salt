@@ -4,6 +4,10 @@
 # @example install salt-api
 #   include salt::api
 #
+# @param repo_manage
+#   true or false. Manage the repo
+#   Default: true
+#
 # @param package_manage
 #   true or false. Manage the package
 #   Default: true
@@ -55,6 +59,7 @@
 #    Default: undef
 #
 class salt::api (
+  Boolean                        $repo_manage,
   Boolean                        $package_manage,
   String[1]                      $package_name,
   String                         $package_ensure,
@@ -72,14 +77,15 @@ class salt::api (
     fail('You must include the salt::master class before using salt::api')
   }
 
-  ensure_resource('salt::repo', $package_release)
+  if $repo_manage {
+    ensure_resource('salt::repo', $package_release)
+  }
 
   contain salt::api::install
   contain salt::api::service
   contain salt::api::config
 
-  Salt::Repo[$package_release]
-  -> Class['salt::api::install']
+  Class['salt::api::install']
   -> Class['salt::api::config']
 
   Salt::Api::Config::Create <| |>

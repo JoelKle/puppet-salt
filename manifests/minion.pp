@@ -4,6 +4,10 @@
 # @example install salt-minion
 #   include salt::minion
 #
+# @param repo_manage
+#   true or false. Manage the repo
+#   Default: true
+#
 # @param package_manage
 #   true or false. Manage the package
 #   Default: true
@@ -55,6 +59,7 @@
 #    Default: undef
 #
 class salt::minion (
+  Boolean                        $repo_manage,
   Boolean                        $package_manage,
   String[1]                      $package_name,
   String                         $package_ensure,
@@ -68,14 +73,15 @@ class salt::minion (
   Optional[Hash]                 $configs,
   ){
 
-  ensure_resource('salt::repo', $package_release)
+  if $repo_manage {
+    ensure_resource('salt::repo', $package_release)
+  }
 
   contain salt::minion::install
   contain salt::minion::service
   contain salt::minion::config
 
-  Salt::Repo[$package_release]
-  -> Class['salt::minion::install']
+  Class['salt::minion::install']
   -> Class['salt::minion::config']
 
   Salt::Minion::Config::Create <| |>

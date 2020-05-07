@@ -4,6 +4,10 @@
 # @example install salt-syndic
 #   include salt::syndic
 #
+# @param repo_manage
+#   true or false. Manage the repo
+#   Default: true
+#
 # @param package_manage
 #   true or false. Manage the package
 #   Default: true
@@ -55,6 +59,7 @@
 #    Default: undef
 #
 class salt::syndic (
+  Boolean                        $repo_manage,
   Boolean                        $package_manage,
   String[1]                      $package_name,
   String                         $package_ensure,
@@ -72,14 +77,15 @@ class salt::syndic (
     fail('You must include the salt::master class before using salt::syndic')
   }
 
-  ensure_resource('salt::repo', $package_release)
+  if $repo_manage {
+    ensure_resource('salt::repo', $package_release)
+  }
 
   contain salt::syndic::install
   contain salt::syndic::service
   contain salt::syndic::config
 
-  Salt::Repo[$package_release]
-  -> Class['salt::syndic::install']
+  Class['salt::syndic::install']
   -> Class['salt::syndic::config']
 
   Salt::Syndic::Config::Create <| |>
