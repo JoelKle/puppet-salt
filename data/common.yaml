@@ -28,6 +28,7 @@ salt::minion::package_manage: true
 salt::minion::package_name: salt-minion
 salt::minion::package_ensure: "%{lookup('salt::master::package_ensure')}"
 salt::minion::package_release: "%{lookup('salt::master::package_release')}"
+salt::minion::package_release_version: "%{lookup('salt::master::package_release_version')}"
 salt::minion::additional_packages: ~
 salt::minion::service_enable: true
 salt::minion::service_ensure: running
@@ -41,6 +42,7 @@ salt::master::package_manage: true
 salt::master::package_name: salt-master
 salt::master::package_ensure: present
 salt::master::package_release: latest
+salt::master::package_release_version: ~
 salt::master::additional_packages: ~
 salt::master::service_enable: true
 salt::master::service_ensure: running
@@ -54,6 +56,7 @@ salt::api::package_manage: true
 salt::api::package_name: salt-api
 salt::api::package_ensure: "%{lookup('salt::master::package_ensure')}"
 salt::api::package_release: "%{lookup('salt::master::package_release')}"
+salt::api::package_release_version: "%{lookup('salt::master::package_release_version')}"
 salt::api::additional_packages:
   - 'python3-cherrypy3'
 salt::api::service_enable: true
@@ -68,6 +71,7 @@ salt::syndic::package_manage: true
 salt::syndic::package_name: salt-syndic
 salt::syndic::package_ensure: "%{lookup('salt::master::package_ensure')}"
 salt::syndic::package_release: "%{lookup('salt::master::package_release')}"
+salt::syndic::package_release_version: "%{lookup('salt::master::package_release_version')}"
 salt::syndic::additional_packages: ~
 salt::syndic::service_enable: true
 salt::syndic::service_ensure: running

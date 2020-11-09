@@ -5,6 +5,14 @@
 #### Fixes
 
 
+## 2.1.0 (November 09, 2020)
+
+#### Features
+
+* !! changed parameter `salt::(master|minion|api|syndic)::package_release` to set latest, major or minor
+* added parameter `salt::(master|minion|api|syndic)::package_release_version` to specify version for major or minor releases
+
+
 ## 2.0.0 (May 06, 2020)
 
 #### Features

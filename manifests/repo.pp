@@ -2,9 +2,14 @@
 # Adds the nessesary package repo to download the SaltStack packages.
 #
 # @param salt_release
-#   latest or any valid release. This variable is used for the repo url.
+#   latest, major or minor. This variable is used for the repo url.
 #   More infos here: [https://repo.saltstack.com/]
-#   Example: 2019.2.0 (To pin the repo url to a specific version)
+#
+# @param salt_release_version
+#   Any valid release version.
+#   Only relevant if you set salt_release to major or minor!
+#   Example: 3002 (To pin the repo url to a major version)
+#   Example: 3002.1 (To pin the repo url to a minor version)
 #
 # @param release
 #   Optional release to use in the apt source string.
@@ -15,6 +20,7 @@
 define salt::repo (
   String $salt_release = $title,
   String $release = $facts['os']['distro']['codename'],
+  Optional[String] $salt_release_version = undef,
   Optional[String] $repo_url = undef,
 ) {
 
@@ -27,8 +33,12 @@ define salt::repo (
       } else {
         if $salt_release == 'latest' {
           $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/latest"
+        } elsif $salt_release == 'major' {
+          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/${salt_release_version}"
+        } elsif $salt_release == 'minor' {
+          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/archive/${salt_release_version}"
         } else {
-          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/archive/${salt_release}"
+          fail("\"${module_name}\" salt_release not vaild")
         }
       }
 

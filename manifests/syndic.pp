@@ -22,10 +22,16 @@
 #   Default: lookup('salt::master::package_ensure')
 #
 # @param package_release
-#   latest or any valid release. This variable is used for the repo url.
+#   latest, major or minor. This variable is used for the repo url.
 #   More infos here: [https://repo.saltstack.com/]
-#   Example: 2019.2.0 (To pin the repo url to a specific version)
 #   Default: lookup('salt::master::package_release')
+#
+# @param package_release_version
+#   Any valid release version.
+#   Only relevant if you set salt_release to major or minor!
+#   Example: 3002 (To pin the repo url to a major version)
+#   Example: 3002.1 (To pin the repo url to a minor version)
+#   Default: lookup('salt::master::package_release_version')
 #
 # @param additional_packages
 #    Any additional packages you want to install.
@@ -64,6 +70,7 @@ class salt::syndic (
   String[1]                      $package_name,
   String                         $package_ensure,
   String                         $package_release,
+  Optional[String]               $package_release_version,
   Optional[Variant[Array, Hash]] $additional_packages,
   Boolean                        $service_enable,
   Enum['stopped', 'running']     $service_ensure,
@@ -78,7 +85,7 @@ class salt::syndic (
   }
 
   if $repo_manage {
-    ensure_resource('salt::repo', $package_release)
+    ensure_resource('salt::repo', $package_release, {'salt_release_version' => $package_release_version })
   }
 
   contain salt::syndic::install

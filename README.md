@@ -11,6 +11,8 @@
     - [Manage Salt minion / master / api / syndic](#manage-salt-minion--master--api--syndic)
       - [Basic setup](#basic-setup)
       - [Install specific Salt version](#install-specific-salt-version)
+        - [Pin to Major release](#pin-to-major-release)
+        - [Pin to Minor release](#pin-to-minor-release)
       - [Install additional packages needed for Salt](#install-additional-packages-needed-for-salt)
     - [Manage Salt Pepper](#manage-salt-pepper)
   - [Reference](#reference)
@@ -79,17 +81,28 @@ salt::master::config::create { 'append logging config':
 
 #### Install specific Salt version
 
-```yaml
-salt::master::package_release: "2019.2.0"
-salt::master::package_ensure: "%{lookup('salt::master::package_release')}+ds-1"
-```
-* Installs the package repo for the release given with `salt::master::package_release`
-* Installs the Salt master package in the version given with `salt::master::package_ensure`
-
 You can disable the management of the repo:
 ```yaml
 salt::master::repo_manage: false
 ```
+
+##### Pin to Major release
+
+```yaml
+salt::master::package_release: "major"
+salt::master::package_release_version: "3002"
+```
+* Installs the package repo for the release given with `salt::master::package_release_version`
+
+##### Pin to Minor release
+
+```yaml
+salt::master::package_release: "minor"
+salt::master::package_release_version: "3002.1"
+salt::master::package_ensure: "%{lookup('salt::master::package_release')}+ds-1"
+```
+* Installs the package repo for the release given with `salt::master::package_release_version`
+* Installs the Salt master package in the version given with `salt::master::package_ensure`
 
 #### Install additional packages needed for Salt
 
