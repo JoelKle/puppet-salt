@@ -91,6 +91,9 @@ class salt::minion (
   Class['salt::minion::install']
   -> Class['salt::minion::config']
 
+  Class['salt::minion::install']
+  -> Class['salt::minion::service']
+
   Salt::Minion::Config::Create <| |>
   ~> Service["${salt::minion::service_name} service"]
 
