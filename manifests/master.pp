@@ -95,6 +95,9 @@ class salt::master (
   Class['salt::master::install']
   -> Class['salt::master::config']
 
+  Class['salt::master::install']
+  -> Class['salt::master::service']
+
   Salt::Master::Config::Create <| |>
   ~> Service["${salt::master::service_name} service"]
 

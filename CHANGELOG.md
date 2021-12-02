@@ -5,6 +5,13 @@
 #### Fixes
 
 
+## 2.1.1 (December 02, 2021)
+
+#### Features
+
+* ensure salt-minion package is installed before attempting to start service (#1, @whorka)
+
+
 ## 2.1.0 (November 09, 2020)
 
 #### Features
