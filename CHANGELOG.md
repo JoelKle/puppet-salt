@@ -4,6 +4,12 @@
 
 #### Fixes
 
+## 2.1.2 (August 31, 2022)
+
+#### Features
+
+* Update module dependencies (#2, @kvedder-amplex)
+
 
 ## 2.1.1 (December 02, 2021)
 
