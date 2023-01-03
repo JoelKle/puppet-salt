@@ -4,6 +4,14 @@
 
 #### Fixes
 
+## 2.1.3 (Januar 03, 2023)
+
+#### Features
+
+* Added Ubuntu 22.04 as supported os release
+* Update module dependencies (#3, @webmeister)
+
+
 ## 2.1.2 (August 31, 2022)
 
 #### Features
