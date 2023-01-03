@@ -1,3 +1,7 @@
+> **PRs are welcome :)**
+>
+> Due to a new job I have only limited posibilities to test this module
+
 # Salt Puppet Module
 
 #### Table of Contents
