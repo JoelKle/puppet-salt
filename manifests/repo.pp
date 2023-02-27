@@ -41,7 +41,7 @@ define salt::repo (
         }
       }
 
-      apt::source { "repo_saltstack_io_${name}":
+      apt::source { "repo_saltstack_com_${name}":
         ensure   => 'present',
         location => $_url,
         release  => $release,
