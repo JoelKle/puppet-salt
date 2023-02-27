@@ -4,6 +4,12 @@
 
 #### Fixes
 
+## 2.1.4 (Februar 27, 2023)
+
+#### Fixes
+
+* Update Repo URL according to latest install instructions (#4, @michaelvdnet)
+
 ## 2.1.3 (Januar 03, 2023)
 
 #### Features
