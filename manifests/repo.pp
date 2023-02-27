@@ -23,7 +23,6 @@ define salt::repo (
   Optional[String] $salt_release_version = undef,
   Optional[String] $repo_url = undef,
 ) {
-
   case $facts['os']['family'] {
     'Debian': {
       include apt
@@ -32,24 +31,23 @@ define salt::repo (
         $_url = $repo_url
       } else {
         if $salt_release == 'latest' {
-          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/latest"
+          $_url = "https://repo.saltproject.io/salt/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/latest"
         } elsif $salt_release == 'major' {
-          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/${salt_release_version}"
+          $_url = "https://repo.saltproject.io/salt/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/${salt_release_version}"
         } elsif $salt_release == 'minor' {
-          $_url = "http://repo.saltstack.com/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/archive/${salt_release_version}"
+          $_url = "https://repo.saltproject.io/salt/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/minor/${salt_release_version}"
         } else {
           fail("\"${module_name}\" salt_release not vaild")
         }
       }
 
-      apt::source { "repo_saltstack_com_${name}":
+      apt::source { "repo_saltstack_io_${name}":
         ensure   => 'present',
         location => $_url,
         release  => $release,
         repos    => 'main',
-        key      => {
-          id     => '754A1A7AE731F165D5E6D4BD0E08A149DE57BFBE',
-          source => "${_url}/SALTSTACK-GPG-KEY.pub",
+        keyring  => {
+          source => "${_url}/salt-archive-keyring.gpg",
         },
         include  => {
           'deb' => true,
@@ -61,5 +59,4 @@ define salt::repo (
       fail("\"${module_name}\" provides no repository information for OSfamily \"${facts['os']['family']}\"")
     }
   }
-
 }
