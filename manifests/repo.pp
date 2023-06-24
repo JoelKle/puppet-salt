@@ -39,7 +39,7 @@ define salt::repo (
         } elsif $salt_release == 'minor' {
           $_url = "https://repo.saltproject.io/salt/py3/${facts['os']['name'].downcase}/${facts['os']['distro']['release']['major']}/${facts['os']['architecture']}/minor/${salt_release_version}"
         } else {
-          fail("\"${module_name}\" salt_release not vaild")
+          fail("\"${module_name}\" salt_release not valid")
         }
       }
 
