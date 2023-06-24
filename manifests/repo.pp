@@ -22,6 +22,8 @@ define salt::repo (
   String $release = $facts['os']['distro']['codename'],
   Optional[String] $salt_release_version = undef,
   Optional[String] $repo_url = undef,
+  Optional[String] $keyring_url = undef,
+  Optional[String] $key_id = undef,
 ) {
   case $facts['os']['family'] {
     'Debian': {
@@ -41,13 +43,40 @@ define salt::repo (
         }
       }
 
+      if $keyring_url {
+        $_keyring_url = $keyring_url
+      } else {
+        case $salt_release_version {
+          '3004','3005': {
+            $_keyring_url = "${_url}/salt-archive-keyring.gpg"
+          }
+          default: {
+            $_keyring_url = "${_url}/SALT-PROJECT-GPG-PUBKEY-2023.gpg"
+          }
+        }
+      }
+
+      if $key_id {
+        $_key_id = $key_id
+      } else {
+        case $salt_release_version {
+          '3004', '3005': {
+            $_key_id = '754A1A7AE731F165D5E6D4BD0E08A149DE57BFBE'
+          }
+          default: {
+            $_key_id = '10857FFDD3F91EAE577A21D664CBBC8173D76B3F'
+          }
+        }
+      }
+
       apt::source { "repo_saltstack_com_${name}":
         ensure   => 'present',
         location => $_url,
         release  => $release,
         repos    => 'main',
-        keyring  => {
-          source => "${_url}/salt-archive-keyring.gpg",
+        key      => {
+          id     => $_key_id,
+          source => $_keyring_url,
         },
         include  => {
           'deb' => true,
